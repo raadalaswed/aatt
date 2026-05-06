@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>نموذج اعتراض الدرجات – شعبة B</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface2: #1c2333;
+      --border: #30363d;
+      --accent: #f0a500;
+      --accent2: #e05c00;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --success: #3fb950;
+      --danger: #f85149;
+      --radius: 14px;
+      --shadow: 0 8px 32px rgba(0,0,0,0.45);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Cairo', 'Tajawal', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(240,165,0,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(224,92,0,0.08) 0%, transparent 60%);
+    }
+
+    /* ===== PARTICLES ===== */
+    #particles {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      width: 2px; height: 2px;
+      background: var(--accent);
+      border-radius: 50%;
+      opacity: 0;
+      animation: float-up linear infinite;
+    }
+    @keyframes float-up {
+      0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.3; }
+      100% { transform: translateY(-20px) scale(1.5); opacity: 0; }
+    }
+
+    /* ===== WRAPPER ===== */
+    .wrapper {
+      position: relative; z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      text-align: center;
+      margin-bottom: 48px;
+      animation: fadeDown 0.7s ease both;
+    }
+    @keyframes fadeDown {
+      from { opacity:0; transform: translateY(-24px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+    .logo-ring {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      background: radial-gradient(circle at 40% 40%, rgba(240,165,0,0.25), transparent 70%);
+      font-size: 36px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 32px rgba(240,165,0,0.35), inset 0 0 20px rgba(240,165,0,0.08);
+      animation: pulse-ring 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse-ring {
+      0%,100% { box-shadow: 0 0 32px rgba(240,165,0,0.35), inset 0 0 20px rgba(240,165,0,0.08); }
+      50%      { box-shadow: 0 0 52px rgba(240,165,0,0.55), inset 0 0 30px rgba(240,165,0,0.14); }
+    }
+    header h1 {
+      font-size: clamp(1.6rem, 5vw, 2.4rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+    header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-weight: 400;
+    }
+
+    /* ===== CARD ===== */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px;
+      box-shadow: var(--shadow);
+      animation: fadeUp 0.6s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(20px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+
+    /* ===== GATE (شعبة B) ===== */
+    #gate {
+      text-align: center;
+    }
+    .gate-icon { font-size: 56px; margin-bottom: 16px; display: block; }
+    #gate h2 {
+      font-size: 1.5rem; font-weight: 700;
+      margin-bottom: 8px;
+    }
+    #gate p {
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    .gate-buttons {
+      display: flex; flex-direction: column; gap: 14px; align-items: center;
+    }
+    .btn-gate-yes {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      border: none; border-radius: 50px;
+      padding: 15px 40px;
+      font-family: inherit; font-size: 1.1rem; font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(240,165,0,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+      width: 100%; max-width: 340px;
+    }
+    .btn-gate-yes:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(240,165,0,0.5); }
+    .btn-gate-no {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      border-radius: 50px;
+      padding: 13px 40px;
+      font-family: inherit; font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 100%; max-width: 340px;
+    }
+    .btn-gate-no:hover { border-color: var(--danger); color: var(--danger); }
+
+    /* ===== DENIED ===== */
+    #denied {
+      text-align: center; display: none;
+    }
+    .denied-icon { font-size: 64px; display: block; margin-bottom: 16px; }
+    #denied h2 { font-size: 1.35rem; font-weight: 700; margin-bottom: 12px; color: var(--danger); }
+    #denied p  { color: var(--text-muted); line-height: 1.8; font-size: 0.95rem; }
+
+    /* ===== FORM ===== */
+    #form-section { display: none; }
+
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1; height: 1px;
+      background: linear-gradient(to left, transparent, var(--border));
+    }
+
+    .field { margin-bottom: 22px; }
+    .field label {
+      display: block;
+      font-size: 0.9rem; font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .field label span.req { color: var(--accent); margin-right: 2px; }
+
+    input[type="text"], input[type="number"], select, textarea {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 13px 16px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      appearance: none;
+    }
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(240,165,0,0.15);
+    }
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b949e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: 14px center;
+      padding-left: 36px;
+    }
+    textarea { resize: vertical; min-height: 90px; }
+
+    /* ===== OBJECTION BLOCK ===== */
+    .objections-list { display: flex; flex-direction: column; gap: 20px; margin-bottom: 20px; }
+    .objection-block {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      position: relative;
+      animation: slideIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+    @keyframes slideIn {
+      from { opacity:0; transform: scale(0.93) translateY(12px); }
+      to   { opacity:1; transform: scale(1) translateY(0); }
+    }
+    .objection-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .objection-num {
+      font-size: 0.8rem; font-weight: 700;
+      color: var(--accent);
+      background: rgba(240,165,0,0.12);
+      border: 1px solid rgba(240,165,0,0.25);
+      padding: 4px 12px; border-radius: 20px;
+    }
+    .btn-remove {
+      background: rgba(248,81,73,0.1);
+      border: 1px solid rgba(248,81,73,0.25);
+      color: var(--danger);
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-family: inherit; font-size: 0.82rem; font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-remove:hover { background: rgba(248,81,73,0.22); }
+
+    /* ===== BUTTONS ===== */
+    .btn-add {
+      width: 100%;
+      background: transparent;
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      color: var(--text-muted);
+      font-family: inherit; font-size: 0.95rem; font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 32px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-add:hover { border-color: var(--accent); color: var(--accent); background: rgba(240,165,0,0.04); }
+
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border: none; border-radius: var(--radius);
+      padding: 18px;
+      color: #fff;
+      font-family: inherit; font-size: 1.1rem; font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 24px rgba(240,165,0,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 36px rgba(240,165,0,0.55); }
+    .btn-submit:active { transform: scale(0.98); }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* ===== ALERT ===== */
+    .alert {
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 0.9rem; font-weight: 600;
+      margin-bottom: 24px;
+      display: none;
+      align-items: center; gap: 10px;
+      animation: fadeUp 0.3s ease;
+    }
+    .alert.error  { background: rgba(248,81,73,0.12); border: 1px solid rgba(248,81,73,0.3); color: var(--danger); }
+    .alert.success{ background: rgba(63,185,80,0.12); border: 1px solid rgba(63,185,80,0.3); color: var(--success); }
+    .alert.show   { display: flex; }
+
+    /* ===== OPTIONAL NOTE ===== */
+    .optional-tag {
+      font-size: 0.75rem; color: var(--text-muted);
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 20px; padding: 2px 10px; margin-right: 8px;
+    }
+
+    /* ===== DIVIDER ===== */
+    .divider { height: 1px; background: var(--border); margin: 28px 0; }
+
+    /* ===== SPINNER ===== */
+    .spinner {
+      display: inline-block;
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle; margin-left: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ===== SUCCESS SCREEN ===== */
+    #success-screen {
+      display: none; text-align: center;
+    }
+    .success-icon { font-size: 72px; display: block; margin-bottom: 16px; animation: pop 0.5s cubic-bezier(0.34,1.56,0.64,1); }
+    @keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
+    #success-screen h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 10px; color: var(--success); }
+    #success-screen p  { color: var(--text-muted); line-height: 1.7; }
+    .btn-reset {
+      margin-top: 24px;
+      display: inline-block;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 12px 32px;
+      color: var(--text-muted);
+      font-family: inherit; font-size: 0.9rem;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .btn-reset:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ===== FOOTER ===== */
+    footer { text-align: center; margin-top: 48px; color: var(--text-muted); font-size: 0.82rem; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 520px) {
+      .card { padding: 24px 18px; }
+      .objection-block { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="particles"></div>
+
+<div class="wrapper">
+
+  <header>
+    <div class="logo-ring">📋</div>
+    <h1>نموذج اعتراض الدرجات</h1>
+    <p>قسم هندسة الامن السيبراني &nbsp;|&nbsp; شعبة B</p>
+  </header>
+
+  <!-- GATE -->
+  <div class="card" id="gate-card">
+    <div id="gate">
+      <span class="gate-icon">🔐</span>
+      <h2>تحقق من شعبتك</h2>
+      <p>هذا النموذج مخصص حصراً لطلاب شعبة B.<br/>
+         يُرجى تأكيد انتمائك للشعبة للمتابعة.</p>
+      <div class="gate-buttons">
+        <button class="btn-gate-yes" onclick="allowAccess()">
+          ✅ &nbsp; نعم، أنا من شعبة B
+        </button>
+        <button class="btn-gate-no" onclick="denyAccess()">
+          لا، لستُ من شعبة B
+        </button>
+      </div>
+    </div>
+
+    <!-- DENIED -->
+    <div id="denied">
+      <span class="denied-icon">🚫</span>
+      <h2>غير مصرّح لك بالدخول</h2>
+      <p>عذراً، هذا النموذج مخصص فقط لطلاب شعبة B،<br/>
+         وسيتم تجاهل أي اعتراض خارج هذه الشعبة.</p>
+    </div>
+  </div>
+
+  <!-- FORM SECTION -->
+  <div id="form-section">
+    <div class="card" style="animation-delay:0.05s">
+
+      <!-- SUCCESS SCREEN -->
+      <div id="success-screen">
+        <span class="success-icon">🎉</span>
+        <h2>تم إرسال اعتراضك بنجاح!</h2>
+        <p>سيتم مراجعة اعتراضك من قِبل الجهة المختصة.<br/>نتمنى لك حظاً موفقاً.</p>
+        <button class="btn-reset" onclick="resetForm()">إرسال اعتراض آخر</button>
+      </div>
+
+      <!-- ACTUAL FORM -->
+      <div id="actual-form">
+
+        <!-- Student Info -->
+        <div class="section-label">👤 معلومات الطالب</div>
+
+        <div class="field">
+          <label>اسم الطالب <span class="req">*</span></label>
+          <input type="text" id="student-name" placeholder="الاسم الثلاثي كاملاً" />
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Objections -->
+        <div class="section-label">📌 الاعتراضات</div>
+
+        <div id="alert-box" class="alert error">
+          <span id="alert-msg"></span>
+        </div>
+
+        <div class="objections-list" id="objections-list"></div>
+
+        <button class="btn-add" onclick="addObjection()">
+          ＋ &nbsp; إضافة اعتراض جديد
+        </button>
+
+        <!-- Optional note -->
+        <div class="divider"></div>
+        <div class="section-label">⚠️ ملاحظة <span class="optional-tag">اختياري</span></div>
+        <div class="field">
+          <label>فقط إذا كان لديك امتحان مد ولكن درجتك غير موجودة</label>
+          <textarea id="extra-note" placeholder="اكتب ملاحظتك هنا..."></textarea>
+        </div>
+
+        <button class="btn-submit" id="submit-btn" onclick="submitForm()">
+          إرسال الاعتراض 🚀
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>جميع البيانات تُرسل بشكل مشفر عبر Telegram Bot API</p>
+  </footer>
+
+</div>
+
+<script>
+  // =====================
+  // CONFIG
+  // =====================
+  const TOKEN   = '8485972141:AAH4NVi3WdndNsvYOjqya6qMFMfCI4TjZxA';
+  const CHAT_ID = '1029629444';
+
+  const SUBJECTS = [
+    'الحوسبة السحابية – د. أمير',
+    'الشبكات اللاسلكية – ست شهد',
+    'أمن الشبكات الاجتماعية – د. علي سالم',
+    'أنظمة كشف ومنع التسلل – د. عمار',
+    'برمجة جافا سكربت – أ. ليث',
+    'أمن إنترنت الأشياء – ست مريم',
+    'المعالجات الدقيقة – د. محمد صبيح',
+  ];
+
+  let objectionCount = 0;
+
+  // =====================
+  // PARTICLES
+  // =====================
+  (function createParticles() {
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 28; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.animationDuration = (8 + Math.random() * 14) + 's';
+      p.style.animationDelay    = (Math.random() * 12) + 's';
+      p.style.width  = (1 + Math.random() * 3) + 'px';
+      p.style.height = p.style.width;
+      p.style.opacity = Math.random() * 0.6;
+      container.appendChild(p);
+    }
+  })();
+
+  // =====================
+  // GATE LOGIC
+  // =====================
+  function allowAccess() {
+    document.getElementById('gate-card').style.display = 'none';
+    const fs = document.getElementById('form-section');
+    fs.style.display = 'block';
+    fs.style.animation = 'fadeUp 0.5s ease both';
+    addObjection(); // Add first objection automatically
+  }
+
+  function denyAccess() {
+    document.getElementById('gate').style.display = 'none';
+    document.getElementById('denied').style.display = 'block';
+  }
+
+  // =====================
+  // OBJECTION BLOCKS
+  // =====================
+  function addObjection() {
+    objectionCount++;
+    const id = objectionCount;
+    const list = document.getElementById('objections-list');
+
+    const block = document.createElement('div');
+    block.className = 'objection-block';
+    block.id = 'obj-' + id;
+
+    const subjectOptions = SUBJECTS.map(s =>
+      `<option value="${s}">${s}</option>`
+    ).join('');
+
+    block.innerHTML = `
+      <div class="objection-header">
+        <span class="objection-num">اعتراض #${id}</span>
+        ${id > 1 ? `<button class="btn-remove" onclick="removeObjection(${id})">✕ حذف</button>` : '<span></span>'}
+      </div>
+      <div class="field">
+        <label>المادة <span class="req">*</span></label>
+        <select id="subject-${id}">
+          <option value="" disabled selected>-- اختر المادة --</option>
+          ${subjectOptions}
+        </select>
+      </div>
+      <div class="field">
+        <label>الدرجة الحالية <span class="req">*</span></label>
+        <input type="number" id="grade-${id}" placeholder="مثال: 45" min="0" max="100" />
+      </div>
+      <div class="field">
+        <label>سبب الاعتراض <span class="req">*</span></label>
+        <textarea id="reason-${id}" placeholder="اشرح سبب اعتراضك بالتفصيل..."></textarea>
+      </div>
+    `;
+
+    list.appendChild(block);
+  }
+
+  function removeObjection(id) {
+    const block = document.getElementById('obj-' + id);
+    block.style.transition = 'all 0.3s ease';
+    block.style.opacity = '0';
+    block.style.transform = 'scale(0.9)';
+    setTimeout(() => block.remove(), 300);
+  }
+
+  // =====================
+  // ALERT
+  // =====================
+  function showAlert(msg) {
+    const box = document.getElementById('alert-box');
+    document.getElementById('alert-msg').textContent = msg;
+    box.classList.remove('success');
+    box.classList.add('error', 'show');
+    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function hideAlert() {
+    document.getElementById('alert-box').classList.remove('show');
+  }
+
+  // =====================
+  // SUBMIT
+  // =====================
+  async function submitForm() {
+    hideAlert();
+
+    const name = document.getElementById('student-name').value.trim();
+    if (!name) { showAlert('⚠️ يُرجى إدخال اسم الطالب.'); return; }
+
+    const blocks = document.querySelectorAll('.objection-block');
+    if (blocks.length === 0) { showAlert('⚠️ يُرجى إضافة اعتراض واحد على الأقل.'); return; }
+
+    const objections = [];
+    let valid = true;
+
+    blocks.forEach(block => {
+      const blockId = block.id.replace('obj-', '');
+      const subject = document.getElementById('subject-' + blockId)?.value;
+      const grade   = document.getElementById('grade-'   + blockId)?.value.trim();
+      const reason  = document.getElementById('reason-'  + blockId)?.value.trim();
+
+      if (!subject) { showAlert('⚠️ يُرجى اختيار المادة في جميع الاعتراضات.'); valid = false; return; }
+      if (!grade)   { showAlert('⚠️ يُرجى إدخال الدرجة في جميع الاعتراضات.'); valid = false; return; }
+      if (!reason)  { showAlert('⚠️ يُرجى إدخال سبب الاعتراض في جميع الحقول.'); valid = false; return; }
+
+      objections.push({ subject, grade, reason });
+    });
+
+    if (!valid) return;
+
+    const extraNote = document.getElementById('extra-note').value.trim();
+
+    // Build Telegram message
+    let msg = `📌 *اعتراض جديد – شعبة B*\n`;
+    msg += `━━━━━━━━━━━━━━━━━\n`;
+    msg += `👤 *الاسم:* ${name}\n\n`;
+
+    objections.forEach((obj, i) => {
+      msg += `📝 *اعتراض ${i + 1}*\n`;
+      msg += `📘 المادة: ${obj.subject}\n`;
+      msg += `📊 الدرجة الحالية: ${obj.grade}\n`;
+      msg += `🗣️ السبب: ${obj.reason}\n\n`;
+    });
+
+    if (extraNote) {
+      msg += `⚠️ *ملاحظة (امتحان مد):*\n${extraNote}\n`;
+    }
+
+    msg += `━━━━━━━━━━━━━━━━━`;
+
+    // Send
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.innerHTML = 'جاري الإرسال... <span class="spinner"></span>';
+
+    try {
+      const res = await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: msg,
+          parse_mode: 'Markdown'
+        })
+      });
+
+      const data = await res.json();
+
+      if (data.ok) {
+        document.getElementById('actual-form').style.display = 'none';
+        const ss = document.getElementById('success-screen');
+        ss.style.display = 'block';
+        ss.style.animation = 'fadeUp 0.5s ease both';
+      } else {
+        throw new Error(data.description || 'خطأ غير معروف');
+      }
+    } catch (err) {
+      showAlert('❌ حدث خطأ أثناء الإرسال: ' + err.message);
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = 'إرسال الاعتراض 🚀';
+    }
+  }
+
+  // =====================
+  // RESET
+  // =====================
+  function resetForm() {
+    document.getElementById('student-name').value = '';
+    document.getElementById('extra-note').value = '';
+    document.getElementById('objections-list').innerHTML = '';
+    document.getElementById('alert-box').classList.remove('show');
+    objectionCount = 0;
+
+    document.getElementById('success-screen').style.display = 'none';
+    document.getElementById('actual-form').style.display   = 'block';
+
+    addObjection();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

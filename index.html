@@ -368,7 +368,7 @@
   <header>
     <div class="logo-ring">📋</div>
     <h1>نموذج اعتراض الدرجات</h1>
-    <p>قسم هندسة الامن السيبراني &nbsp;|&nbsp; شعبة B</p>
+    <p>قسم شبكات الحاسوب والاتصالات &nbsp;|&nbsp; شعبة B</p>
   </header>
 
   <!-- GATE -->
@@ -461,8 +461,7 @@
   // =====================
   // CONFIG
   // =====================
-  const TOKEN   = '8485972141:AAH4NVi3WdndNsvYOjqya6qMFMfCI4TjZxA';
-  const CHAT_ID = '1029629444';
+  const WORKER_URL = 'https://square-voice-3ce9.alaswedraad.workers.dev';
 
   const SUBJECTS = [
     'الحوسبة السحابية – د. أمير',
@@ -630,14 +629,10 @@
     btn.innerHTML = 'جاري الإرسال... <span class="spinner"></span>';
 
     try {
-      const res = await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+      const res = await fetch(WORKER_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: CHAT_ID,
-          text: msg,
-          parse_mode: 'Markdown'
-        })
+        body: JSON.stringify({ message: msg })
       });
 
       const data = await res.json();
